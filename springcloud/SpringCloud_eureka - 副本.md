@@ -12,7 +12,7 @@
 
 # Eureka参数配置详解
 
-https://www.jianshu.com/p/e2beb
+https://www.jianshu.com/p/e2bebfb0d075
 
 # 一. Eureka搭建
 
@@ -69,7 +69,7 @@ https://www.jianshu.com/p/e2beb
    > 1. yml则需用127.0.0.1,而不是相应的eureka1.com和eureka2.com
    > 2. 直接使用ip地址，会出现unavailable-replicas（部分服务不可用）
 
-![image-20210928131033532](1.Ming_SpringCloud_eureka.assets/image-20210928131033532.png)
+![image-20210928131033532](Ming_SpringCloud_eureka.assets/image-20210928131033532.png)
 
 2. ---
 
@@ -105,7 +105,7 @@ server:
 
    Edit Configurations
 
-![image-20210928130443502](1.Ming_SpringCloud_eureka.assets/image-20210928130443502.png)
+![image-20210928130443502](Ming_SpringCloud_eureka.assets/image-20210928130443502.png)
 
 4. ---
 
@@ -113,11 +113,11 @@ server:
 
 + **8090端口**：
 
-![image-20210928132059042](1.Ming_SpringCloud_eureka.assets/image-20210928132059042.png)
+![image-20211025120734842](SpringCloud_eureka - 副本.assets/image-20211025120734842.png)
 
 + **8091端口**：
 
-![image-20210928131931387](1.Ming_SpringCloud_eureka.assets/image-20210928131931387.png)
+![image-20211025120753231](SpringCloud_eureka - 副本.assets/image-20211025120753231.png)
 
 ## 3. 搭建三节点服务端Eureka（客户端集群也可这么搭）
 
@@ -195,8 +195,6 @@ register-with-eureka: true
 ### 4.2 available底层实现原理：
 
 > available底层原理：**yml写的地址名和收到的注册表中的地址要一致**
->
-> > 在点getStatusInfo才能进isReplicaavailable
 
 ![available-replicas底层原理](1.Ming_SpringCloud_eureka.assets/available-replicas底层原理.jpg)
 
@@ -261,7 +259,7 @@ eureka.instance.lease-expiration-duration-in-seconds=60
 ~~~properties
 #关闭自我保护模式
 eureka.server.enable-self-preservation=false
-#失效服务间隔(关闭生效)  eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
+#失效服务间隔  eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
 eureka.server.eviction-interval-timer-in-ms=3000
 ~~~
 
@@ -318,21 +316,17 @@ eureka.instance.metadata-map.zhanghp=hp
 
 + 通过{ip:port}/eureka/status查看metadata
 
-<img src="1.Ming_SpringCloud_eureka.assets/image-20210926195034633.png" alt="image-20210926195034633" style="zoom:50%;" />
+<img src="Ming_SpringCloud_eureka.assets/image-20210926195034633.png" alt="image-20210926195034633" style="zoom:50%;" />
 
 + 自定义元数据的作用
 
   > 调用服务之前，通过服务端{ip:port}/eureka/status，查询instanceInfo中的metadata，看这个机器是谁的
-  >
-  > 灰色发布
 
 # 五. EurekaClient
 
 + DiscoveryClient
 
-  > org.springframework.cloud.client.discovery定义用来发现服务的客户端接口，是客户端进行服务发现的核心接口，是spring cloud用来进行服务发现的顶级接口，在common中可以看到其地位。在Netflix Eureka和Consul中都有具体的实现类。
-
-  
+  > org.springframework.cloud.client.discovery定义用来服务发现的客户端接口，是客户端进行服务发现的核心接口，是spring cloud用来进行服务发现的顶级接口，在common中可以看到其地位。在Netflix Eureka和Consul中都有具体的实现类。
 
   ~~~java
   String description();//获取实现类的描述。
@@ -360,7 +354,7 @@ public class EurekaClientDemo {
     
     @RequestMapping("/client")
     public String client() {
-        // 获取所有的服务实例id 
+        // 获取所有的服务实例id
         List<String> services = discoveryClient.getServices();
         for (String service : services) {
             System.out.println(service);
@@ -429,7 +423,7 @@ management:
 
 + 通过控制台打印信息访问
 
-![image-20210926211956622](1.Ming_SpringCloud_eureka.assets/image-20210926211956622.png)
+![image-20210926211956622](Ming_SpringCloud_eureka.assets/image-20210926211956622.png)
 
 ------
 
@@ -447,7 +441,7 @@ management:
 >
 > {"status":"UP"}
 
-![image-20210926212127729](1.Ming_SpringCloud_eureka.assets/image-20210926212127729.png)
+![image-20210926212127729](Ming_SpringCloud_eureka.assets/image-20210926212127729.png)
 
 ---
 
@@ -580,15 +574,15 @@ public class HealthStatusService implements HealthIndicator{
 
 + 输入网址
 
-![image-20210926215937279](1.Ming_SpringCloud_eureka.assets/image-20210926215937279.png)
+![image-20210926215937279](Ming_SpringCloud_eureka.assets/image-20210926215937279.png)
 
 + actuator/health界面
 
-![image-20210926220037231](1.Ming_SpringCloud_eureka.assets/image-20210926220037231.png)
+![image-20210926220037231](Ming_SpringCloud_eureka.assets/image-20210926220037231.png)
 
 + eureka-server界面
 
-![image-20210926215839909](1.Ming_SpringCloud_eureka.assets/image-20210926215839909.png)
+![image-20210926215839909](Ming_SpringCloud_eureka.assets/image-20210926215839909.png)
 
 # 八. Eureka安全配置
 
